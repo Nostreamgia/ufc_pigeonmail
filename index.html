@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Legacy Notebook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Inter:wght@400;500;600&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              handwriting: ['"Indie Flower"', 'cursive'],
+              marker: ['"Nanum Pen Script"', 'cursive'],
+              sans: ['"Inter"', 'sans-serif'],
+            },
+            colors: {
+              paper: '#fdfbf7',
+              'paper-line': '#a2a9b1',
+              'paper-margin': '#ef4444',
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.5s ease-out',
+              'jiggle': 'jiggle 0.4s cubic-bezier(.25, .46, .45, .94) both',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              jiggle: {
+                '0%, 100%': { transform: 'translateX(0)' },
+                '15%': { transform: 'translateX(-2px) rotate(-2deg)' },
+                '30%': { transform: 'translateX(2px) rotate(2deg)' },
+                '45%': { transform: 'translateX(-2px) rotate(-1deg)' },
+                '60%': { transform: 'translateX(2px) rotate(1deg)' },
+                '75%': { transform: 'translateX(-1px)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #2e2e2e;
+        background-image: radial-gradient(#3e3e3e 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+      /* Custom scrollbar for the notebook feel */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
