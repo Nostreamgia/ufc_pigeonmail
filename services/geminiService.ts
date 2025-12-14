@@ -1,15 +1,18 @@
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 import { ReplyTone } from "../types";
 
-// Safely retrieve API Key to avoid "ReferenceError: process is not defined" 
-// which causes black screens in some client-side deployment environments.
+// Robustly retrieve API Key to avoid "ReferenceError" in strict browser environments
 const getApiKey = (): string => {
-  try {
+  if (typeof process !== 'undefined' && process.env) {
     return process.env.API_KEY || '';
-  } catch (e) {
-    // Fail silently if process is not defined; ensures app still renders.
-    return '';
   }
+  // Fallback if window.process is used (from polyfill)
+  // @ts-ignore
+  if (typeof window !== 'undefined' && window.process && window.process.env) {
+      // @ts-ignore
+      return window.process.env.API_KEY || '';
+  }
+  return '';
 };
 
 const API_KEY = getApiKey();
@@ -28,7 +31,10 @@ export const generateReply = async (
   tone: ReplyTone
 ): Promise<string> => {
   if (!API_KEY) {
-    return "Error: API Key is missing. Please configure process.env.API_KEY.";
+    // In production without an API key, we return a mock response to prevent crashing if the user hasn't set it up.
+    // However, if the user intends to use it, they must set the key.
+    console.warn("API Key is missing.");
+    return "API Key is missing. Please configure process.env.API_KEY in your environment variables.";
   }
 
   const ai = getClient();
@@ -36,7 +42,6 @@ export const generateReply = async (
   let toneDescription = tone as string;
   let styleDescription = 'Informal, personal, direct.';
 
-  // Custom overrides for specific tones to ensure high quality output matching user intent
   if (tone === ReplyTone.OLD_ENGLISH) {
     toneDescription = 'Medieval, archaic, knightly, noble.';
     styleDescription = 'Use authentic Middle English or Early Modern English vocabulary and grammar (e.g., thou, thee, hath, verily, forsooth). Write like a Commander from the 14th century.';

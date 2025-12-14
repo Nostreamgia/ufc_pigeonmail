@@ -146,7 +146,7 @@ const App: React.FC = () => {
             </div>
 
             {/* Main Notebook Area */}
-            <div className="lg:col-span-9 order-1 lg:order-2 perspective-1000">
+            <div className="lg:col-span-9 order-1 lg:order-2 perspective-[1000px]">
             <NotebookPaper rotation={-1} className="w-full">
                 {/* Header / Date */}
                 <div className="flex justify-between items-end mb-8 font-handwriting text-gray-500 text-xl border-b-2 border-gray-300/50 pb-1">

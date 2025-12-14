@@ -26,7 +26,7 @@ export const Envelope: React.FC<EnvelopeProps> = ({ onOpen }) => {
   };
 
   return (
-    <div className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-[#0f0a05] font-sans perspective-2000 select-none">
+    <div className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-[#0f0a05] font-sans perspective-[2000px] select-none">
         
         {/* --- DESK SURFACE (Mahogany Wood) --- */}
         <div className="absolute inset-0 z-0 bg-[#2b1d16]"
