@@ -1,7 +1,18 @@
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 import { ReplyTone } from "../types";
 
-const API_KEY = process.env.API_KEY || '';
+// Safely retrieve API Key to avoid "ReferenceError: process is not defined" 
+// which causes black screens in some client-side deployment environments.
+const getApiKey = (): string => {
+  try {
+    return process.env.API_KEY || '';
+  } catch (e) {
+    // Fail silently if process is not defined; ensures app still renders.
+    return '';
+  }
+};
+
+const API_KEY = getApiKey();
 
 let client: GoogleGenAI | null = null;
 
